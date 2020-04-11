@@ -8,6 +8,6 @@ db
 mycol
 
 r = requests.get('https://jsonplaceholder.typicode.com/users')
-currencies = json.loads(r.text)
+usersinfo = json.loads(r.text)
 
-x = mycol.insert_many(currencies)
+x = mycol.insert_many(usersinfo)
