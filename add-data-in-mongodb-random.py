@@ -20,6 +20,7 @@ for x in range(1, 11):
     }
 
     order_result=mycoll.insert_one(orders)  # add result in db + add collection 'people-orders' and insert data from 'orders'
+    
     print(x, format(order_result.inserted_id))
 
 
