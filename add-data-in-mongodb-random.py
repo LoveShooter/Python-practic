@@ -15,7 +15,7 @@ for x in range(1, 11):
     orders = {
         'order_number': random.randint(1, 99),
         'guest_name': random.choice(names),
-        'guest_order': random.choice(mainmenu) + ' ' + random.choice(drinks) + ' ' + random.choice(dessert)
+        'guest_order': random.choice(mainmenu) + ' , ' + random.choice(drinks) + ' , ' + random.choice(dessert)
 
     }
 
