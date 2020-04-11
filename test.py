@@ -1,15 +1,27 @@
+import pymongo
 import random
 
-names = ['Kitchen','Animal','State', 'Tastey', 'Big','City','Fish', 'Pizza','Goat', 'Salty','Sandwich','Lazy', 'Fun']
-company_type = ['LLC','Inc','Company','Corporation']
-company_cuisine = ['Pizza', 'Bar Food', 'Fast Food', 'Italian', 'Mexican', 'American', 'Sushi Bar', 'Vegetarian']
-
-for x in range(1, 11):
-    business = {
-        'name' : names[random.randint(0, (len(names)-1))] + ' ' + names[random.randint(0, (len(names)-1))]  + ' ' + company_type[random.randint(0, (len(company_type)-1))],
-        'rating' : random.randint(1, 5),
-        'cuisine' : company_cuisine[random.randint(0, (len(company_cuisine)-1))] 
-    }
+client = pymongo.MongoClient('mongodb+srv://sysadm:Ff121314@cluster0-gpxwq.mongodb.net/')  #Connect to my MongoDB cluster + auth
+db = client["testdb"]  #Create DB
+mycol = db["test-insert-many"]  #Create collection 
 
 
-print (business)
+mylist = [
+  { "name": "Amy", "address": "Apple st 652"},
+  { "name": "Hannah", "address": "Mountain 21"},
+  { "name": "Michael", "address": "Valley 345"},
+  { "name": "Sandy", "address": "Ocean blvd 2"},
+  { "name": "Betty", "address": "Green Grass 1"},
+  { "name": "Richard", "address": "Sky st 331"},
+  { "name": "Susan", "address": "One way 98"},
+  { "name": "Vicky", "address": "Yellow Garden 2"},
+  { "name": "Ben", "address": "Park Lane 38"},
+  { "name": "William", "address": "Central st 954"},
+  { "name": "Chuck", "address": "Main Road 989"},
+  { "name": "Viola", "address": "Sideway 1633"}
+]
+
+x = mycol.insert_many(mylist)
+
+#print list of the _id values of the inserted documents:
+print(x.inserted_ids)
