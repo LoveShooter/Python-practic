@@ -8,12 +8,13 @@ mycoll = db["people-orders-input-name"]  #Create collection 'people-orders-input
 mainmenu = ['Beef', 'Potato', 'Tomato', 'Grill', 'Vegetables', 'Chicken', 'Pesto']
 drinks = ['Cola', 'Water', 'Wed wine', 'Vodka', 'Whiskey', 'White wine', 'Orange juice', 'Fanta']
 dessert = ['Cake', 'Cheese cake', 'Jelly', 'Chocolate pie']
+names = ['Max', 'Alex', 'John', 'Alena', 'Arnold', 'Ted', 'Philip', 'Danielle', 'Zane', 'Sirena']
 
 
 for x in range(1, 11):
     orders = {
         'order_number': random.randint(1, 99),
-        'guest_name': input("Enter your name: "),
+        'guest_name': random.choice(names),
         'guest_order': random.choice(mainmenu) + ' , ' + random.choice(drinks) + ' , ' + random.choice(dessert)
 
     }
