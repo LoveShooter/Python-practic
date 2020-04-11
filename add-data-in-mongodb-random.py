@@ -3,7 +3,7 @@ import random
 
 client = pymongo.MongoClient('mongodb+srv://sysadm:Ff121314@cluster0-gpxwq.mongodb.net/')  #Connect to my MongoDB cluster + auth
 db = client["random-datadb"]  #Create DB
-
+mycoll = db["people-orders"]  #Create collection 'people-orders'
 
 mainmenu = ['Beef', 'Potato', 'Tomato', 'Grill', 'Vegetables', 'Chicken', 'Pesto']
 drinks = ['Cola', 'Water', 'Wed wine', 'Vodka', 'Whiskey', 'White wine', 'Orange juice', 'Fanta']
@@ -19,7 +19,7 @@ for x in range(1, 11):
 
     }
 
-    order_result=db.peopleorders.insert_one(orders)  # add result in db + add coll 'peopleorders'
+    order_result=mycoll.insert_one(orders)  # add result in db + add collection 'people-orders' and insert data from 'orders'
     print(x, format(order_result.inserted_id))
 
 
