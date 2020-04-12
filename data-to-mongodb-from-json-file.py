@@ -1,6 +1,6 @@
 import json
 import mongodb_client # Import connection from mongodb_client.py 
-filename = "Common-currency.json"
+filename = "posts.json"
 #myfile = open(filename, mode='w')
 
 
@@ -16,11 +16,9 @@ mycol
 
 #x = mycol.insert_many(filename)
 
-
-
-with open('Common_currency.json', 'r') as data_file:
-    data_json = json.load(data_file)
+with open('G:\OneDrive\coding\python\Lessons\Python-practic\posts.json') as f:
+    data_from_json = json.load(f)
 
 #Insert Data
-mycol.remove()
-mycol.insert(data_json)
+x = mycol.insert_one(f)
+print(x)
