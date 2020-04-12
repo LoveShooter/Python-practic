@@ -11,5 +11,3 @@ r = requests.get('https://jsonplaceholder.typicode.com/users')
 usersinfo = json.loads(r.text)
 
 x = mycol.insert_many(usersinfo)
-
-print(usersinfo)
