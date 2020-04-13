@@ -6,12 +6,12 @@ client
 db
 mycol
 
-
 x = mycol.find_one()    # Show first object in collection
 print(x)                
-    
+
 
 print("----------------------------------------------------------")
+
 
 for x in mycol.find():  # Show all objects in collection
     print(x)
