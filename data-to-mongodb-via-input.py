@@ -18,7 +18,7 @@ for x in range(1, 11):
 
     }
 
-    order_result=mycoll.insert_one(orders)  # add result in db + add collection 'people-orders' and insert data from 'orders'
+    order_result=mycoll.insert_one(orders)  # add result in db + add collection 'people-orders-input-name' and insert data from 'orders'
     
     print(x, format(order_result.inserted_id))
 
