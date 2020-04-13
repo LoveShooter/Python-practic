@@ -1,8 +1,8 @@
 import json
 import requests
-import mongodb_client # Import connection from mongodb_client.py 
+import mongodb_conn_input # Import connection from mongodb_client.py 
 
-from mongodb_client import*
+from mongodb_conn_input import*
 client
 db
 mycol

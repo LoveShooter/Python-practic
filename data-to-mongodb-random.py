@@ -2,8 +2,8 @@ import pymongo
 import random
 
 client = pymongo.MongoClient('mongodb+srv://sysadm:Ff121314@cluster0-gpxwq.mongodb.net/')  #Connect to my MongoDB cluster + auth
-db = client["random-datadb"]  #Create DB
-mycoll = db["people-orders-input-name"]  #Create collection 'people-orders-input-name'
+db = client["testdb"]  #Create DB
+mycoll = db["test-coll"]  #Create collection 'people-orders-input-name'
 
 mainmenu = ['Beef', 'Potato', 'Tomato', 'Grill', 'Vegetables', 'Chicken', 'Pesto']
 drinks = ['Cola', 'Water', 'Wed wine', 'Vodka', 'Whiskey', 'White wine', 'Orange juice', 'Fanta']

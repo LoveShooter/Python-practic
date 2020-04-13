@@ -1,10 +1,10 @@
 import json
-import mongodb_client # Import connection from mongodb_client.py 
+import mongodb_conn_input # Import connection from mongodb_client.py 
 filename = "posts.json"
 #myfile = open(filename, mode='w')
 
 
-from mongodb_client import* # Import our functions from file
+from mongodb_conn_input import* # Import our functions from file
 client
 db
 mycol
