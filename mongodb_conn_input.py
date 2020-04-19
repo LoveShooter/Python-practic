@@ -5,5 +5,5 @@ client = pymongo.MongoClient('mongodb+srv://sysadm:Ff121314@cluster0-gpxwq.mongo
 inputdb = input("Enter DB name: ")
 inputcol = input("Enter name of Collection: ")
 
-db = client["inputdb"]  #Create DB
-mycol = db["inputcol"]  #Create collection
+db = client['inputdb']  #Create DB
+mycol = db['inputcol']  #Create collection
