@@ -37,8 +37,16 @@ print(insert_data(mycol, to_do_record))
 #find_data = {'owner_name': name}
 #print(find_data)
 
-result_find = find_doc(mycol, {'owner_name': 'Max'})
-print(result_find)
+find_query = { 'owner_name': input("Enter Owner name to find:") }
+print(find_query)
+print("---------------------------")
 
-delete_doc(mycol, {'task_name': 'test'})
+result_find = find_doc(mycol, find_query)
+print(result_find)
+print("---------------------------")
+
+query = { 'taskname': input("Enter Task name to delete:") }
+print(query)
+
+delete_doc(mycol, query)
 
