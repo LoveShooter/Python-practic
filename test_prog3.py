@@ -45,7 +45,7 @@ result_find = find_doc(mycol, find_query)
 print(result_find)
 print("---------------------------")
 
-query = { 'taskname': input("Enter Task name to delete:") }
+query = { 'task_name': input("Enter Task name to delete:") }
 print(query)
 
 delete_doc(mycol, query)
