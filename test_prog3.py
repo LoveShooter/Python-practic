@@ -14,7 +14,8 @@ def insert_data(mycol, data):
 def find_doc(mycol, elements):
     return mycol.find_one(elements)
 
-
+def delete_doc(mycol, query):
+    mycol.delete_one(query)
 
 #for record in range(1, 3):
 owner = input("Enter Owner Name: ")
@@ -36,6 +37,8 @@ print(insert_data(mycol, to_do_record))
 #find_data = {'owner_name': name}
 #print(find_data)
 
-result = find_doc(mycol, {'owner_name': 'Max'})
-print(result)
+result_find = find_doc(mycol, {'owner_name': 'Max'})
+print(result_find)
+
+delete_doc(mycol, {'task_name': 'test'})
 
