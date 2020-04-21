@@ -1,15 +1,12 @@
 import pymongo
 
-
-newdb = input("Enter DB name:")
-newcoll = input("Enter name of Collection:")
-
-
-client = pymongo.MongoClient('mongodb+srv://sysadm:Ff121314@cluster0-gpxwq.mongodb.net/')  #Connect to my MongoDB cluster + auth
-
+newdb = input('Enter DB name: ' )
+newcoll = input('Enter name of Collection: ')
 
 print(newdb)
 print(newcoll)
+
+client = pymongo.MongoClient('mongodb+srv://sysadm:Ff121314@cluster0-gpxwq.mongodb.net/')  #Connect to my MongoDB cluster + auth
 
 #mydatabase = client.newdb
 #mycollection = mydatabase.newcoll
@@ -18,8 +15,8 @@ db = client['newdb']  #Create DB
 mycol = db['newcoll']  #Create collection
 
 
-#print(mydatabase)
-#print(mycollection)
+print(db)
+print(mycol)
 
 #mycollection.insert_one({
 #    "_id": 1,
