@@ -17,7 +17,8 @@ mycol = db['newcoll']  #Create collection
 print(db)
 print(mycol)
 
-mycol.insert_one({
+
+bzhu = {
     "_id": 1,
     "name": "pizza",
     "calories": 266,
@@ -26,4 +27,6 @@ mycol.insert_one({
         "trans": 0.2
     },
     "protein": 11
-})
+}
+
+x = mycol.insert_one(bzhu)
