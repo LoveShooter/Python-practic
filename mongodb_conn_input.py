@@ -14,17 +14,16 @@ client = pymongo.MongoClient('mongodb+srv://sysadm:Ff121314@cluster0-gpxwq.mongo
 db = client['newdb']  #Create DB
 mycol = db['newcoll']  #Create collection
 
-
 print(db)
 print(mycol)
 
-#mycollection.insert_one({
-#    "_id": 1,
-#    "name": "pizza",
-#    "calories": 266,
-#    "fats": {
-#        "saturated": 4.5,
-#        "trans": 0.2
-#    },
-#    "protein": 11
-#})
+mycol.insert_one({
+    "_id": 1,
+    "name": "pizza",
+    "calories": 266,
+    "fats": {
+        "saturated": 4.5,
+        "trans": 0.2
+    },
+    "protein": 11
+})
