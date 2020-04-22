@@ -1,20 +1,23 @@
 import pymongo
 
-newdb = input('Enter DB name: ' )
-newcoll = input('Enter name of Collection: ')
-
-print(newdb)
-print(newcoll)
-
 client = pymongo.MongoClient('mongodb+srv://sysadm:Ff121314@cluster0-gpxwq.mongodb.net/')  #Connect to my MongoDB cluster + auth
 
 #mydatabase = client.newdb
 #mycollection = mydatabase.newcoll
 
-db = client['newdb']  #Create DB
-mycol = db['newcoll']  #Create collection
+newdb = str(input("Enter DB name: "))
+newcoll = str(input("Enter name of Collection: "))
 
-print(db)
+y = newdb + newcoll
+
+print(y)
+print(newdb)
+print(newcoll)
+
+mydb = client["newdb"]  #Create DB
+mycol = mydb["newcoll"]  #Create collection
+
+print(mydb)
 print(mycol)
 
 

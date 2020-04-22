@@ -1,11 +1,11 @@
 import pymongo
-import json
-import mongodb_conn_input
 
-from mongodb_conn_input import*
-client
-db
-mycol
+
+
+client = pymongo.MongoClient('mongodb+srv://sysadm:Ff121314@cluster0-gpxwq.mongodb.net/')  #Connect to my MongoDB cluster + auth
+
+mydb = client["myprogdb"]  #Create DB
+mycol = mydb["progcollection"]  #Create collection
 
 
 def insert_data(mycol, data):
@@ -17,10 +17,10 @@ def find_doc(mycol, elements):
 def delete_doc(mycol, query):
     mycol.delete_one(query)
 
-#for record in range(1, 3):
-owner = input("Enter Owner Name: ")
-task = input("Enter Task name: ")
-priority = int(input("Choose Priority from 1 to 5: "))
+for record in range(1, 3):
+    owner = input("Enter Owner Name: ")
+    task = input("Enter Task name: ")
+    priority = int(input("Choose Priority from 1 to 5: "))
 
 
 to_do_record = {
