@@ -2,7 +2,7 @@ from flask import Flask
 from flask_restful import Api, Resource, reqparse
 import random
 
-app = Flask(TestApp)
+app = Flask(__name__)
 api = Api(app)
 
 
@@ -112,6 +112,7 @@ class Quote(Resource):
                 return quote, 200
         return "Quote not found", 404
 
+# Метод POST
 
 def post(self, id):
     parser = reqparse.RequestParser()
@@ -119,4 +120,47 @@ def post(self, id):
     parser.add_argument("quote")
     params = parser.parse_args()
     for quote in ai_quotes:
-        
+        if(id == quote["id"]):
+            return f"Quote with id {id} already exists", 400
+    quote = {
+        "id": int(id),
+        "author": params["author"],
+        "quote": params["quote"]
+    }
+    ai_quotes.append(quote)
+    return quote, 201
+
+# Метод PUT
+
+def put(self, id):
+    parser = reqparse.RequestParser()
+    parser.add_argument("author")
+    parser.add_argument("quote")
+    params = parser.parse_args()
+    for quote in ai_quotes:
+        if(id == quote[id]):
+            quote["author"] = params["author"]
+            quote["quote"] = params["quote"]
+            return quote, 200
+    
+    quote = {
+        "id": id,
+        "author": params["author"],
+        "quote": params["quote"]
+    }
+    ai_quotes.append(quote)
+    return quote, 201
+
+
+# Метод DELETE
+
+def delete (self, id):
+    global ai_quotes
+    ai_quotes = [qoute for qoute in ai_quotes if qoute["id"] !=id]
+    return f"Quote with id {id} is deleted", 200
+
+# Добавление resource к API, добавление пути и запуск Flask
+
+api.add_resource(Quote, "/ai-quotes", "/ai-quotes/", "/ai-quotes/<int:id>")
+if __name__ == '__main__':
+    app.run(debug=True)
