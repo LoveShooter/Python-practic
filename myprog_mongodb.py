@@ -1,37 +1,39 @@
 import pymongo
+import mongodb_conn_input
+
+from mongodb_conn_input import*
 
 
+def insert_data(mycoll, data):
+    return mycoll.insert_many(data)
 
-client = pymongo.MongoClient('mongodb+srv://sysadm:Ff121314@cluster0-gpxwq.mongodb.net/')  #Connect to my MongoDB cluster + auth
+def find_doc(mycoll, elements):
+    return mycoll.find_one(elements)
 
-mydb = client["myprogdb"]  #Create DB
-mycol = mydb["progcollection"]  #Create collection
+def delete_doc(mycoll, query):
+    mycoll.delete_one(query)
 
+owner = input("Enter Owner Name: ")
+task = input("Enter Task name: ")
+priority = int(input("Choose Priority from 1 to 5: "))
 
-def insert_data(mycol, data):
-    return mycol.insert_one(data).inserted_id
+owner2 = input("Enter Owner #2 Name: ")
+task2 = input("Enter Task #2 name: ")
+priority2 = int(input("Choose Priority from 1 to 5: "))
 
-def find_doc(mycol, elements):
-    return mycol.find_one(elements)
+owner3 = input("Enter Owner #2 Name: ")
+task3 = input("Enter Task #2 name: ")
+priority3 = int(input("Choose Priority from 1 to 5: "))
 
-def delete_doc(mycol, query):
-    mycol.delete_one(query)
+to_do_record = [
+    {'owner_name': owner, 'task_name': task,'priority': priority},
+    {'owner_name': owner2, 'task_name': task2,'priority': priority2},
+    {'owner_name': owner3, 'task_name': task3,'priority': priority3},
+    ]
 
-for record in range(1, 3):
-    owner = input("Enter Owner Name: ")
-    task = input("Enter Task name: ")
-    priority = int(input("Choose Priority from 1 to 5: "))
-
-
-to_do_record = {
-    'owner_name': owner,
-    'task_name': task,
-    'priority': priority,
-    }
-    
 print(to_do_record)
 
-print(insert_data(mycol, to_do_record))
+print(insert_data(mycoll, to_do_record))
 
 #name = input("Enter Owner Name to search:")
 #find_data = {'owner_name': name}
@@ -41,12 +43,12 @@ find_query = { 'owner_name': input("Enter Owner name to find:") }
 print(find_query)
 print("---------------------------")
 
-result_find = find_doc(mycol, find_query)
+result_find = find_doc(mycoll, find_query)
 print(result_find)
 print("---------------------------")
 
 query = { 'task_name': input("Enter Task name to delete:") }
 print(query)
 
-delete_doc(mycol, query)
+delete_doc(mycoll, query)
 
