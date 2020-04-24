@@ -1,8 +1,14 @@
 import pymongo
-import mongodb_conn_input
 
-from mongodb_conn_input import*
 
+client = pymongo.MongoClient('mongodb+srv://sysadm:Ff121314@cluster0-gpxwq.mongodb.net/')  #Connect to my MongoDB cluster + auth
+
+db = client['to-do-lists']
+mycoll = db['todos']
+
+print(db)
+print(mycoll)
+print("-------------------------------------------")
 
 def insert_data(mycoll, data):
     return mycoll.insert_many(data)

@@ -23,4 +23,3 @@ for x in range(1, 11):
     
     print(x, format(order_result.inserted_id))
 
-
