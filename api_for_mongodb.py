@@ -48,5 +48,6 @@ def add_data():
 
     return jsonify({'result': output})
 
+
 if __name__ == '__main__':
     app.run(debug=True)
