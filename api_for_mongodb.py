@@ -1,17 +1,52 @@
 #api for mongodb data
-
-from flask import Flask
-from flask import request
-from pymongo import MongoClient
-import json
-
-client = MongoClient('mongodb+srv://sysadm:Ff121314@cluster0-gpxwq.mongodb.net/')
-db = client['to-do-list']
+import pymongo
+from flask import Flask, jsonify, request
+from flask_pymongo import PyMongo
+#from pymongo import MongoClient
 
 app = Flask(__name__)
 
-@app.route("/")
-def hello():
-    return "Welcome to Python Flask!"
+app.config['MONGO_DBNAME'] = 'to-do-lists' # name of database on mongo
+app.config["MONGO_URI"] = "mongodb+srv://sysadm:Ff121314@cluster0-gpxwq.mongodb.net/to-do-lists"
 
-#Connection to mongodb cluster, to the db 'to-do-list'
+mongo = PyMongo(app)
+
+@app.route('/getdata', methods=['GET'])  # find all data in my collection
+def get_all_data():
+    todos = mongo.db.todos #connect to my collection
+
+    output = []
+
+    for q in todos.find():   # q - like query
+        output.append({'owner_name': q['owner_name'], 'task_name': q['task_name'], 'priority': q['priority']})
+
+    return jsonify({'result': output})
+
+@app.route('/getdata/<name>', methods=['GET'])
+def get_one_data(name):
+    todos = mongo.db.todos
+    q = todos.find_one({'owner_name': name}) # find data by owner name
+    if q:
+        output = {'owner_name': q['owner_name'], 'task_name': q['task_name'], 'priority': q['priority']}
+    else:
+        output = 'No results found'
+
+    return jsonify({'result': output})
+
+@app.route('/adddata', methods=['POST'])
+def add_data():
+    todos = mongo.db.todos
+
+    owner_name = request.json['owner_name']
+    task_name = request.json['task_name']
+    priority = request.json['priority']
+
+    todos_id = todos.insert({'owner_name': owner, 'task_name': task, 'priority': priority})
+    new_todos = todos.find_one({'_id': todos_id})
+
+    output = {'owner_name': new_todos['owner'], 'task_name': new_todos['task'], 'priority': new_todos['priority']}
+
+    return jsonify({'result': output})
+
+if __name__ == '__main__':
+    app.run(debug=True)
