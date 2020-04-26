@@ -2,6 +2,7 @@
 import pymongo
 from flask import Flask, jsonify, request
 from flask_pymongo import PyMongo
+from bson.objectid import ObjectId
 #from pymongo import MongoClient
 
 app = Flask(__name__)
@@ -22,6 +23,8 @@ def get_all_data():
 
     return jsonify({'result': output})
 
+
+
 @app.route('/getdata/<name>', methods=['GET'])
 def get_one_data(name):
     todos = mongo.db.todos
@@ -33,20 +36,34 @@ def get_one_data(name):
 
     return jsonify({'result': output})
 
-@app.route('/adddata', methods=['POST'])
+
+
+@app.route('/adddata', methods=['POST']) # add data in db. Need input JSON-like data.
 def add_data():
     todos = mongo.db.todos
+    
+    _owner_name = request.json['owner_name']
+    _task_name = request.json['task_name']
+    _priority = request.json['priority']
 
-    owner_name = request.json['owner_name']
-    task_name = request.json['task_name']
-    priority = request.json['priority']
-
-    todos_id = todos.insert({'owner_name': owner, 'task_name': task, 'priority': priority})
+    todos_id = todos.insert({'owner_name': _owner_name, 'task_name': _task_name, 'priority': _priority})
     new_todos = todos.find_one({'_id': todos_id})
 
-    output = {'owner_name': new_todos['owner'], 'task_name': new_todos['task'], 'priority': new_todos['priority']}
+    output = {'owner_name': new_todos['owner_name'], 'task_name': new_todos['task_name'], 'priority': new_todos['priority']}
 
     return jsonify({'result': output})
+
+
+
+@app.route('/deldata/<taskname>', methods=['DELETE'])
+def del_one_data(taskname):
+    todos = mongo.db.todos
+    todos.delete_one({'task_name': taskname}) # delete data by task name
+
+    return jsonify('Task Delete Sucefully')
+
+
+
 
 
 if __name__ == '__main__':
