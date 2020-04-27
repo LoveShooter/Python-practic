@@ -68,8 +68,15 @@ def del_one_data(taskname):
 
 
 
-@app.route('/getdataplaceholder', methods=['GET'])  # Send a request to the API server and store the response.
+@app.route('/getdataplaceholder', methods=['GET'])  # send a request to the API server and store the response.
 def request_response():
+    response = requests.get("https://jsonplaceholder.typicode.com/todos/2")
+    todos = json.loads(response.text)
+    return todos
+
+
+@app.route('/adddataplaceholder', methods=['POST'])  # send a request to the API server and store the response.
+def request_add():
     response = requests.get("https://jsonplaceholder.typicode.com/todos/2")
     todos = json.loads(response.text)
     return todos
