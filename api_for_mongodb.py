@@ -1,8 +1,12 @@
-#api for mongodb data
+#api_for_mongodb.py
+#CRUD RESTApi with using Flask
+
 import pymongo
+import requests
+import json
 from flask import Flask, jsonify, request
 from flask_pymongo import PyMongo
-from bson.objectid import ObjectId
+#from bson.objectid import ObjectId
 #from pymongo import MongoClient
 
 app = Flask(__name__)
@@ -61,6 +65,15 @@ def del_one_data(taskname):
     todos.delete_one({'task_name': taskname}) # delete data by task name
 
     return jsonify('Task Delete Sucefully')
+
+
+
+@app.route('/getdataplaceholder', methods=['GET'])  # Send a request to the API server and store the response.
+def request_response():
+    response = requests.get("https://jsonplaceholder.typicode.com/todos/2")
+    todos = json.loads(response.text)
+    return todos
+
 
 
 

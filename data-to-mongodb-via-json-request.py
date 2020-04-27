@@ -7,7 +7,7 @@ client
 db
 mycoll
 
-r = requests.get('https://jsonplaceholder.typicode.com/users')
-usersinfo = json.loads(r.text)
+url = requests.get('https://jsonplaceholder.typicode.com/users')
+usersinfo = json.loads(url.text)
 
 x = mycoll.insert_many(usersinfo)
