@@ -9,8 +9,6 @@ from flask_pymongo import PyMongo
 #from pymongo import MongoClient
 
 
-
-
 app = Flask(__name__)
 
 
@@ -61,6 +59,7 @@ def add_data():
     output = {'owner_name': new_todos['owner_name'], 'task_name': new_todos['task_name'], 'priority': new_todos['priority']}
 
     return jsonify({'result': output})
+
 
 
 
