@@ -3,18 +3,23 @@
 
 import pymongo
 import requests
-import json
+import json, bson
 from flask import Flask, jsonify, request
 from flask_pymongo import PyMongo
-#from bson.objectid import ObjectId
 #from pymongo import MongoClient
 
+
+
+
 app = Flask(__name__)
+
 
 app.config['MONGO_DBNAME'] = 'to-do-lists' # name of database on mongo
 app.config["MONGO_URI"] = "mongodb+srv://sysadm:Ff121314@cluster0-gpxwq.mongodb.net/to-do-lists"
 
 mongo = PyMongo(app)
+
+
 
 @app.route('/getdata', methods=['GET'])  # find all data in my collection
 def get_all_data():
@@ -61,8 +66,8 @@ def add_data():
 
 @app.route('/deldata/<taskname>', methods=['DELETE'])
 def del_one_data(taskname):
-    todos = mongo.db.todos
-    todos.delete_one({'task_name': taskname}) # delete data by task name
+    todoscoll = mongo.db.todos
+    todoscoll.delete_one({'task_name': taskname}) # delete data by task name
 
     return jsonify('Task Delete Sucefully')
 
@@ -71,18 +76,19 @@ def del_one_data(taskname):
 @app.route('/getdataplaceholder', methods=['GET'])  # send a request to the API server and store the response.
 def request_response():
     response = requests.get("https://jsonplaceholder.typicode.com/todos/2")
-    todoslist = json.loads(response.text)
+    todolist = json.loads(response.text)
+
+    return todolist
+
+@app.route('/adddataplaceholder', methods=['GET'])  #
+
+def add_data_placeholder():
+    mycoll = mongo.db.todos
+    url = requests.get('https://jsonplaceholder.typicode.com/todos/3')
+    todoslist = json.loads(url.text)
+    mycoll.insert_one(todoslist)
+
     return todoslist
-
-
-@app.route('/adddataplaceholder', methods=['POST'])  # send a request to the API server and store the response.
-def request_add():
-    response = requests.get("https://jsonplaceholder.typicode.com/todos/2")
-    todos = json.loads(response.text)
-    return todos
-
-
-
 
 
 
