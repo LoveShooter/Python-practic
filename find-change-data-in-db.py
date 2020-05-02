@@ -15,7 +15,7 @@ for x in findobject:
 
 print("----------------------------------------------")
 
-#Change value 'guest_name': 'Alena'
+#Change value 'guest_name': 'JAMES BOND'
 newvalues = {'$set': {'guest_name': 'JAMES BOND'}}
 
 y = mycol.update_one(search_query, newvalues)
