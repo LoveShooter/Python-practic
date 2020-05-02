@@ -24,7 +24,7 @@ def get_all_data():
     output = []
 
     for q in user.find():   # q - like query
-        output.append({'id': q['id'], 'name': q['name'], 'username': q['username'], 'email': q['email'], 'adsress': q['address']})
+        output.append({'id': q['id'], 'name': q['name'], 'username': q['username'], 'email': q['email'], 'address': q['address'], 'phone': q['phone'], 'website': q['website'], 'company': q['company']})
 
     return jsonify({'result': output})
 
