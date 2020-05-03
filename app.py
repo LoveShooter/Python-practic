@@ -29,5 +29,32 @@ def get_all_data():
     return jsonify({'result': output})
 
 
+@app.route('/add_data', methods=['POST']) # Add data in db. Need input JSON-like data.
+def add_data():
+    user = mongo.db.users
+    
+    _id = request.json['id']
+    _name = request.json['name']
+    _username = request.json['username']
+    _email = request.json['email']
+    _phone = request.json['phone']
+    _website = request.json['website']
+
+    user_id = user.insert({'id': _id, 'name': _name, 'username': _username, 'email': _email, 'phone': _phone, 'website': _website})
+    new_user = user.find_one({'_id': user_id})
+
+    output = {'id': new_user['id'], 'name': new_user['name'], 'username': new_user['username'], 'email': new_user['email'], 'phone': new_user['phone'], 'website': new_user['website']}
+
+    return jsonify({'result': output})
+
+
+@app.route('/deldata/<int:user_id>', methods=['GET'])
+def del_one_data(user_id):
+    usercoll = mongo.db.users
+    usercoll.delete_one({'id': user_id}) # Delete data by user ID
+
+    return jsonify('Task deleted successfully!')
+
+
 if __name__ == '__main__':
     app.run(debug=True)
