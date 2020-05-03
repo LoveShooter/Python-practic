@@ -16,6 +16,12 @@ app.config["MONGO_URI"] = "mongodb+srv://sysadm:Ff121314@cluster0-gpxwq.mongodb.
 
 mongo = PyMongo(app)
 
+@app.route('/', methods=['GET']) # Hello message
+def index():
+    
+    return 'Hello! It works!'
+
+
 
 @app.route('/get_data', methods=['GET'])  # Find all data in my collection
 def get_all_data():
@@ -48,13 +54,15 @@ def add_data():
     return jsonify({'result': output})
 
 
-@app.route('/del_data/<int:user_id>', methods=['GET'])
+@app.route('/del_data/<int:user_id>', methods=['GET'])  # Delete data by user ID
 def del_one_data(user_id):
     usercoll = mongo.db.users
-    usercoll.delete_one({'id': user_id}) # Delete data by user ID
-
-    return jsonify('Task deleted successfully!')
-
+    delete_user = usercoll.delete_one({'id': int(user_id)}) 
+    
+    resp = jsonify('Task deleted successfully!')
+    resp.status_code = 200
+	
+    return resp
 
 
 @app.route('/add_data_placeholder', methods=['GET'])  # Send a request to the API and add data in mongodb from jsonplaceholder
@@ -74,6 +82,20 @@ def add_data_placeholder():
     mycoll.insert_one(userlist)
     
     return userlist
+
+
+@app.errorhandler(404)
+def not_found(error=None):
+    message = {
+        'status': 404,
+        'message': 'Not Found: ' + request.url,
+    }
+    resp = jsonify(message)
+    resp.status_code = 404
+
+    return resp
+
+
 
 
 if __name__ == '__main__':
