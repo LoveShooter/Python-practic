@@ -47,7 +47,7 @@ def get_all_data():
     output = []
 
     for q in user.find():   # q - like query
-        output.append({'id': q['id'], 'name': q['name'], 'username': q['username'], 'email': q['email'], 'address': q['address'], 'phone': q['phone'], 'website': q['website'], 'company': q['company']})
+        output.append({'_id': q['_id'], 'id': q['id'], 'name': q['name'], 'username': q['username'], 'email': q['email'], 'address': q['address'], 'phone': q['phone'], 'website': q['website'], 'company': q['company']})
 
     return jsonify({'result': output})
 
@@ -71,15 +71,26 @@ def add_data():
     return jsonify({'result': output})
 
 
-@app.route('/del_data/<int:user_id>', methods=['GET'])  # Delete data by user ID
-def del_one_data(user_id):
-    usercoll = mongo.db.users
-    delete_user = usercoll.delete_one({'id': int(user_id)}) 
-    
-    resp = jsonify('Task deleted successfully!')
-    resp.status_code = 200
-	
-    return resp
+@app.route('/del_data/<id>', methods=['DELETE'])
+def del_one_data(id):
+    db_response = mongo.db.users.delete_one({'_id': ObjectId(id)})
+    if db_response.deleted_count == 1:
+        response = {'message': 'Record deleted'}
+    else:
+        response = {'message': 'No record found!'}
+    return jsonify(response), 200
+
+
+
+#@app.route('/del_data/<id>', methods=['DELETE'])  # Delete data by user ID
+#def del_one_data(id):
+#    usercoll = mongo.db.users
+#    delete_user = usercoll.delete_one({'_id': ObjectId(id)}) 
+#    
+#    resp = jsonify('Task deleted successfully!')
+#    resp.status_code = 200
+#	
+#    return resp
 
 
 @app.route('/add_data_placeholder', methods=['GET'])  # Send a request to the API and add data in mongodb from jsonplaceholder
