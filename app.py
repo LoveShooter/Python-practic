@@ -29,15 +29,13 @@ app.config['MONGO_DBNAME'] = 'userslist' # Name of database on mongo
 app.config["MONGO_URI"] = "mongodb+srv://sysadm:Ff121314@cluster0-gpxwq.mongodb.net/userslist" #URI to Atlas cluster  + Auth Credentials
 
 mongo = PyMongo(app)
-
-
 app.json_encoder = JSONEncoder # Use the modified encoder class to handle ObjectId & datetime object while jsonifying the response.
+
 
 @app.route('/', methods=['GET']) # Hello message
 def index():
     
     return 'Hello! It works!'
-
 
 
 @app.route('/get_data', methods=['GET'])  # Find all data in my collection
@@ -47,7 +45,7 @@ def get_all_data():
     output = []
 
     for q in user.find():   # q - like query
-        output.append({'_id': q['_id'], 'id': q['id'], 'name': q['name'], 'username': q['username'], 'email': q['email'], 'address': q['address'], 'phone': q['phone'], 'website': q['website'], 'company': q['company']})
+        output.append({'login': q['login'], 'password': q['password'], 'firstName': q['firstName'], 'secondName': q['secondName'], 'email': q['email']})
 
     return jsonify({'result': output})
 
@@ -56,17 +54,17 @@ def get_all_data():
 def add_data():
     user = mongo.db.users
     
-    _id = request.json['id']
-    _name = request.json['name']
-    _username = request.json['username']
+    _login = request.json['login']
+    _password = request.json['password']
+    _firstName = request.json['firstName']
+    _secondName = request.json['secondName']
     _email = request.json['email']
-    _phone = request.json['phone']
-    _website = request.json['website']
 
-    user_id = user.insert({'id': _id, 'name': _name, 'username': _username, 'email': _email, 'phone': _phone, 'website': _website})
+
+    user_id = user.insert({'login': _login, 'password': _password, 'firstName': _firstName, 'secondName': _secondName, 'email': _email})
     new_user = user.find_one({'_id': user_id})
 
-    output = {'id': new_user['id'], 'name': new_user['name'], 'username': new_user['username'], 'email': new_user['email'], 'phone': new_user['phone'], 'website': new_user['website']}
+    output = {'login': new_user['login'], 'password': new_user['password'], 'firstName': new_user['firstName'], 'secondName': new_user['secondName'], 'email': new_user['email']}
 
     return jsonify({'result': output})
 
@@ -82,7 +80,7 @@ def del_one_data(id):
 
 
 
-#@app.route('/del_data/<id>', methods=['DELETE'])  # Delete data by user ID
+#@app.route('/del_data/<id>', methods=['GET'])  # Delete data by user ID
 #def del_one_data(id):
 #    usercoll = mongo.db.users
 #    delete_user = usercoll.delete_one({'_id': ObjectId(id)}) 
