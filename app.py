@@ -2,10 +2,23 @@ import pymongo
 import requests
 import json, bson
 import random
+import datetime
+import os
 from flask import Flask, jsonify, request
 from flask_pymongo import PyMongo
+from bson.objectid import ObjectId
 from flask_cors import CORS
 
+
+
+class JSONEncoder(json.JSONEncoder):                           
+    ''' extend json-encoder class'''    
+    def default(self, o):                               
+        if isinstance(o, ObjectId):
+            return str(o)                               
+        if isinstance(o, datetime.datetime):
+            return str(o)
+        return json.JSONEncoder.default(self, o)
 
 app = Flask(__name__)
 CORS(app)   # This will enable CORS for all routes
@@ -15,6 +28,9 @@ app.config['MONGO_DBNAME'] = 'userslist' # Name of database on mongo
 app.config["MONGO_URI"] = "mongodb+srv://sysadm:Ff121314@cluster0-gpxwq.mongodb.net/userslist" #URI to Atlas cluster  + Auth Credentials
 
 mongo = PyMongo(app)
+
+# use the modified encoder class to handle ObjectId & datetime object while jsonifying the response.
+app.json_encoder = JSONEncoder
 
 @app.route('/', methods=['GET']) # Hello message
 def index():
