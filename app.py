@@ -20,6 +20,7 @@ class JSONEncoder(json.JSONEncoder):
             return str(o)
         return json.JSONEncoder.default(self, o)
 
+
 app = Flask(__name__)
 CORS(app)   # This will enable CORS for all routes
 
@@ -29,8 +30,8 @@ app.config["MONGO_URI"] = "mongodb+srv://sysadm:Ff121314@cluster0-gpxwq.mongodb.
 
 mongo = PyMongo(app)
 
-# use the modified encoder class to handle ObjectId & datetime object while jsonifying the response.
-app.json_encoder = JSONEncoder
+
+app.json_encoder = JSONEncoder # Use the modified encoder class to handle ObjectId & datetime object while jsonifying the response.
 
 @app.route('/', methods=['GET']) # Hello message
 def index():
