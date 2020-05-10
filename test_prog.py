@@ -1,4 +1,7 @@
 import pymongo
+import json, bson
+from pymongo import MongoClient
+from bson import ObjectId
 
 
 client = pymongo.MongoClient('mongodb+srv://sysadm:Ff121314@cluster0-gpxwq.mongodb.net/')  #Connect to my MongoDB cluster + auth
@@ -6,34 +9,39 @@ db = client["userslist"]  #Create DB
 mycol = db["users"]  #Create collection 
 
 
-mylist = [
-    {
-    "id": 1,
-    "name": "Leanne Graham",
-    "username": "Bret",
-    "email": "Sincere@april.biz",
-    "address": {
-        "street": "Kulas Light",
-        "suite": "Apt. 556",
-        "city": "Gwenborough",
-        "zipcode": "92998-3874",
-        "geo": {
-        "lat": "-37.3159",
-        "lng": "81.1496"
-        }
-    },
-    "phone": "1-770-736-8031 x56442",
-    "website": "hildegard.org",
-    "company": {
-        "name": "Romaguera-Crona",
-        "catchPhrase": "Multi-layered client-server neural-net",
-        "bs": "harness real-time e-markets"
-    }
-    },
-]
 
-print(mylist)
-x = mycol.insert_many(mylist)
+outputId = []
+
+for el in mycol.find():   
+    outputId.append(el['_id'])
+
+print(outputId)
+
+
+
+idListEdit = []
+
+for element in mycol.find():
+    idListEdit.append(str(element['_id']))
+
+inputId = input("Enter element id:")
+
+if inputId in idListEdit:
+    print("ID in collection")
+else:
+    print("ID not in collection")
+
+
+#if id in y:
+#    id = input("Vvedite id:")
+#    y = mycol.find_one({'_id': ObjectId(id)})
+#    print(y)
+#else:
+#    print("Not found")
+
+
+
+
 
 #print list of the _id values of the inserted documents:
 #print(x.inserted_ids)
