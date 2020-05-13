@@ -49,13 +49,13 @@ def postFile(filename):
     return jsonify(201, 'File uploaded successfully!') # Return 201 CREATED
 
 
-@app.route('/delfiles/<filename>', methods=['DELETE'])
+@app.route('/delfiles/<filename>', methods=['DELETE'])  # Del file by filename
 def delFile(filename):
     
     files = []
 
-    for filename in os.listdir(UPLOAD_DIRECTORY):
-        path = os.path.join(UPLOAD_DIRECTORY, filename)
+    for filename in os.listdir(UPLOAD_DIRECTORY):     # Find in dir
+        path = os.path.join(UPLOAD_DIRECTORY, filename) 
         if os.path.isfile(path):
             files.append(filename)
             os.remove(path)
