@@ -13,27 +13,19 @@ if not os.path.exists(UPLOAD_DIRECTORY):
 app = Flask(__name__)
 
 
-@app.route("/files")   # Endpoint to list files on the server
+@app.route("/files", methods=["GET"])   # Endpoint to list files on the server
 def listFiles():   
 
     files = []
 
     for filename in os.listdir(UPLOAD_DIRECTORY):
-        path = os.path.join(UPLOAD_DIRECTORY, filename)
-        if os.path.isfile(path):
+        pathToFile = os.path.join(UPLOAD_DIRECTORY, filename)
+        if os.path.isfile(pathToFile):
             files.append(filename)
     return jsonify(files)
 
 
-#@api.route("/createfile/<text>", methods=["GET"])
-#def createFile(text):
-#    file = open("testfile.txt", "w")
-#    text = input("Enter your text:")
-#    file.write(text) 
-#    file.close()
-#    return jsonify("File created")
-
-@app.route("/files/<path:path>") # Download a file
+@app.route("/files/<path:path>", methods=["GET"]) # Download a file
 def getFile(path):
     return send_from_directory(UPLOAD_DIRECTORY, path, as_attachment=True)
 
