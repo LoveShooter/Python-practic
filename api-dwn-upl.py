@@ -33,9 +33,8 @@ def listFiles():
 #    file.close()
 #    return jsonify("File created")
 
-@app.route("/files/<path:path>")
+@app.route("/files/<path:path>") # Download a file
 def getFile(path):
-    """Download a file."""
     return send_from_directory(UPLOAD_DIRECTORY, path, as_attachment=True)
 
 
