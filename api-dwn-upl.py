@@ -4,19 +4,20 @@ from flask import Flask, request, abort, jsonify, send_from_directory
 
 
 UPLOAD_DIRECTORY = "g:/OneDrive/coding/python/PythonPractice/testfolder/api_uploaded_files"
-print(os.getcwd())
+print(os.getcwd()) # Show work dir
 
 if not os.path.exists(UPLOAD_DIRECTORY):
     os.makedirs(UPLOAD_DIRECTORY)
 
 
-api = Flask(__name__)
+app = Flask(__name__)
 
 
-@api.route("/files")
-def list_files():
-    """Endpoint to list files on the server."""
+@app.route("/files")   # Endpoint to list files on the server
+def listFiles():   
+
     files = []
+
     for filename in os.listdir(UPLOAD_DIRECTORY):
         path = os.path.join(UPLOAD_DIRECTORY, filename)
         if os.path.isfile(path):
@@ -32,26 +33,22 @@ def list_files():
 #    file.close()
 #    return jsonify("File created")
 
-@api.route("/files/<path:path>")
-def get_file(path):
+@app.route("/files/<path:path>")
+def getFile(path):
     """Download a file."""
     return send_from_directory(UPLOAD_DIRECTORY, path, as_attachment=True)
 
 
-@api.route("/files/<filename>", methods=["POST"])
-def post_file(filename):
-    """Upload a file."""
-
-    if "/" in filename:
-        # Return 400 BAD REQUEST
-        abort(400, "no subdirectories directories allowed")
+@app.route("/files/<filename>", methods=["POST"]) # Upload File
+def postFile(filename):
+    if "/" in filename:  # Return 400 BAD REQUEST
+        abort(400, "No SubDir's Allowed")
 
     with open(os.path.join(UPLOAD_DIRECTORY, filename), "wb") as fp:
         fp.write(request.data)
 
-    # Return 201 CREATED
-    return "", 201
+    return jsonify(201, 'File uploaded successfully!') # Return 201 CREATED
 
 
 if __name__ == "__main__":
-    api.run(debug=True, port=8000)
+    app.run(debug=True, port=8000)
