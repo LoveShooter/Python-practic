@@ -55,10 +55,10 @@ def delFile(filename):
     files = []
 
     for filename in os.listdir(UPLOAD_DIRECTORY):     # Find in dir
-        path = os.path.join(UPLOAD_DIRECTORY, filename) 
-        if os.path.isfile(path):
+        filePath = os.path.join(UPLOAD_DIRECTORY, filename) 
+        if os.path.isfile(filePath):
             files.append(filename)
-            os.remove(path)
+            os.remove(filePath)
             response = {"message": "File Deleted"}
         else:
             response = {"message": "File Not Found!"}
