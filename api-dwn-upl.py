@@ -24,6 +24,14 @@ def list_files():
     return jsonify(files)
 
 
+#@api.route("/createfile/<text>", methods=["GET"])
+#def createFile(text):
+#    file = open("testfile.txt", "w")
+#    text = input("Enter your text:")
+#    file.write(text) 
+#    file.close()
+#    return jsonify("File created")
+
 @api.route("/files/<path:path>")
 def get_file(path):
     """Download a file."""
