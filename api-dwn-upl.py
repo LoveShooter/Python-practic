@@ -65,16 +65,6 @@ def delFile(filename):
     
     return jsonify(response), 200
 
-#files = []
-
-#    for filename in os.listdir(UPLOAD_DIRECTORY):
-#        path = os.path.join(UPLOAD_DIRECTORY, filename)
-#        if os.path.exists(filename):
-#            files.append(filename)
-#    return jsonify(files)
-
-#if os.path.exists("demofile.txt"):
-#    os.remove("demofile.txt")
 
 @app.errorhandler(404)
 def not_found(error=None):
