@@ -3,10 +3,12 @@ import shutil
 
 path = 'G:/OneDrive/coding/python/PythonPractice/testfolder/api_uploaded_files'
 
-print(dir(os))
+#print(dir(os))
 dir_list = os.listdir(path)
 os.chdir('G:/OneDrive/coding/python/PythonPractice/testfolder/api_uploaded_files')
 print(os.getcwd())
+
+
 
 dirName = input("Enter dir name:")   
 os.mkdir(dirName)   # Make new dir
