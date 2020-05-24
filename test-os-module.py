@@ -7,11 +7,11 @@ path = 'G:/OneDrive/coding/python/PythonPractice/testfolder/api_uploaded_files'
 dir_list = os.listdir(path)
 os.chdir('G:/OneDrive/coding/python/PythonPractice/testfolder/api_uploaded_files')
 print(os.getcwd())
+print(os.path.join(path))
 
 
-
-dirName = input("Enter dir name:")   
-os.mkdir(dirName)   # Make new dir
+#dirName = input("Enter dir name:")   
+#os.mkdir(dirName)   # Make new dir
 
 
 print("----------------------------------------------")
@@ -19,8 +19,9 @@ print("List of directories and files before creation:")
 print(os.listdir(path))
 print()
 
-dirDelete = input("Folder name for delete:")
-os.rmdir(dirDelete)    #Delete dir
+#dirDelete = input("Folder name for delete:")
+for dir in os.listdir(path):
+    shutil.rmtree(path, ignore_errors=True)    #Delete dir
 
 #filename = input("Input Filename to search:")
 #print(filename)
