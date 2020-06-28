@@ -4,11 +4,26 @@ import shutil
 path = 'G:/OneDrive/coding/python/PythonPractice/testfolder/api_uploaded_files'
 
 #print(dir(os))
-dir_list = os.listdir(path)
-os.chdir('G:/OneDrive/coding/python/PythonPractice/testfolder/api_uploaded_files')
-print(os.getcwd())
-print(os.path.join(path))
+dir_list = print(os.listdir(path))
+os.chdir(path)
 
+print("--------New path--------")
+print(os.getcwd())
+
+folderName = 'test2'
+os.mkdir(folderName)
+
+print("----------Path join---------")
+pathNew  = print(os.path.join(path, folderName))
+
+print("----------Revert slashes--------")
+pathNew2 = os.path.abspath(folderName)
+print(pathNew2)
+
+os.chdir(pathNew2)
+
+print("------New path------")
+print(os.getcwd())
 
 #dirName = input("Enter dir name:")   
 #os.mkdir(dirName)   # Make new dir
@@ -20,8 +35,8 @@ print(os.listdir(path))
 print()
 
 #dirDelete = input("Folder name for delete:")
-for dir in os.listdir(path):
-    shutil.rmtree(path, ignore_errors=True)    #Delete dir
+#for dir in os.listdir(path):
+#    shutil.rmtree(path, ignore_errors=True)    #Delete dir
 
 #filename = input("Input Filename to search:")
 #print(filename)
