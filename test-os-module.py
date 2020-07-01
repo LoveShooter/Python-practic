@@ -7,10 +7,10 @@ path = 'G:/OneDrive/coding/python/PythonPractice/testfolder/api_uploaded_files'
 dir_list = print(os.listdir(path))
 os.chdir(path)
 
-print("--------New path--------")
+print("--------Path--------")
 print(os.getcwd())
 
-folderName = 'test2'
+folderName = 'test2222'
 os.mkdir(folderName)
 
 print("----------Path join---------")
@@ -24,6 +24,13 @@ os.chdir(pathNew2)
 
 print("------New path------")
 print(os.getcwd())
+
+
+folders = ['2001','2002','2003', '2004', '2005']
+
+for folder in folders:
+    os.mkdir(folder)
+
 
 #dirName = input("Enter dir name:")   
 #os.mkdir(dirName)   # Make new dir
