@@ -32,6 +32,7 @@ for folder in folders:
     os.mkdir(folder)
 
 
+
 #dirName = input("Enter dir name:")   
 #os.mkdir(dirName)   # Make new dir
 
